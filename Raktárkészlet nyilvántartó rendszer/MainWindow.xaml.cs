@@ -246,10 +246,13 @@ namespace Raktárkészlet_nyilvántartó_rendszer
             showbyidB.Visibility = Visibility.Visible;
             itemedit.Visibility = Visibility.Visible;
             itemdelete.Visibility = Visibility.Visible;
+            showbywhB.Visibility = Visibility.Visible;
+            showlowB.Visibility = Visibility.Visible;
 
             WH_add.Visibility = Visibility.Collapsed;
             WH_searchbyID.Visibility = Visibility.Collapsed;
             WH_ShowAll.Visibility = Visibility.Collapsed;
+            WH_delStock.Visibility = Visibility.Collapsed;
         }
 
         private void Warehouse_menaggement_Click(object sender, RoutedEventArgs e)
@@ -263,10 +266,13 @@ namespace Raktárkészlet_nyilvántartó_rendszer
             showbyidB.Visibility = Visibility.Collapsed;
             itemedit.Visibility = Visibility.Collapsed;
             itemdelete.Visibility = Visibility.Collapsed;
+            showbywhB.Visibility = Visibility.Collapsed;
+            showlowB.Visibility = Visibility.Collapsed;
 
             WH_add.Visibility = Visibility.Visible;
             WH_searchbyID.Visibility = Visibility.Visible;
             WH_ShowAll.Visibility = Visibility.Visible;
+            WH_delStock.Visibility = Visibility.Visible;
         }
 
         void clearContent()
@@ -282,6 +288,9 @@ namespace Raktárkészlet_nyilvántartó_rendszer
             WH_add.Visibility = Visibility.Collapsed;
             WH_searchbyID.Visibility = Visibility.Collapsed;
             WH_ShowAll.Visibility = Visibility.Collapsed;
+            showbywhB.Visibility = Visibility.Collapsed;
+            showlowB.Visibility = Visibility.Collapsed;
+            WH_delStock.Visibility = Visibility.Collapsed;
         }
 
         private void Home_Click(object sender, RoutedEventArgs e)
@@ -421,6 +430,105 @@ namespace Raktárkészlet_nyilvántartó_rendszer
             }
 
           
+        }
+
+        private async void ClickShowByWh(object s, RoutedEventArgs e)
+        {
+            ClearDisplay();
+
+            List<Products> products = await con.FilterStock(whNameInput.Text);
+
+
+            if (products.Count == 0)
+            {
+                MessageBox.Show("Nincsenek termékek.");
+                return;
+            }
+
+            foreach (var p in products)
+            {
+
+                cb = new Border
+                {
+                    Width = 240,
+                    Height = 170,
+                    Margin = new Thickness(10),
+                    Background = new SolidColorBrush(Color.FromRgb(0, 0, 75)),
+                    CornerRadius = new CornerRadius(20),
+
+                    Child = new TextBlock
+                    {
+                        Text = $"ID: {p.id}\nNév: {p.name}\nRaktár ID: {p.warehouseId}\nDarab: {p.amount}",
+                        TextWrapping = TextWrapping.Wrap,
+                        TextAlignment = TextAlignment.Center,
+                        Foreground = Brushes.White,
+                        VerticalAlignment = VerticalAlignment.Center,
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        FontSize = 16,
+                    }
+                };
+                SearchRes.Children.Add(cb);
+            }
+        }
+
+        private async void ClickShowLow(object s, RoutedEventArgs e)
+        {
+            ClearDisplay();
+
+            List<Products> products = await con.ListLowStock();
+
+
+            if (products.Count == 0)
+            {
+                MessageBox.Show("Nincsenek termékek.");
+                return;
+            }
+
+            foreach (var p in products)
+            {
+
+                cb = new Border
+                {
+                    Width = 240,
+                    Height = 170,
+                    Margin = new Thickness(10),
+                    Background = new SolidColorBrush(Color.FromRgb(0, 0, 75)),
+                    CornerRadius = new CornerRadius(20),
+
+                    Child = new TextBlock
+                    {
+                        Text = $"ID: {p.id}\nNév: {p.name}\nRaktár ID: {p.warehouseId}\nDarab: {p.amount}",
+                        TextWrapping = TextWrapping.Wrap,
+                        TextAlignment = TextAlignment.Center,
+                        Foreground = Brushes.White,
+                        VerticalAlignment = VerticalAlignment.Center,
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        FontSize = 16,
+                    }
+                };
+                SearchRes.Children.Add(cb);
+            }
+        }
+
+        private async void WH_DeleteStock_Click(object s, RoutedEventArgs e)
+        {
+            if (!int.TryParse(WH_id.Text.Trim(), out int id))
+            {
+                MessageBox.Show("Érvénytelen ID!");
+                return;
+            }
+
+            bool success = await con.DeleteStock(id);
+            if (success)
+            {
+                MessageBox.Show("Termékek sikeresen törölve.");
+                ClearDisplay();
+                ClickShowAll(null, null);
+            }
+            else
+            {
+                MessageBox.Show("Hiba történt a termékek törlésekor.");
+            }
         }
     }
 }

@@ -257,6 +257,67 @@ namespace Raktárkészlet_nyilvántartó_rendszer
             }
         }
 
+
+        public async Task<bool> DeleteStock(int id)
+        {
+            string url = $"{BaseUrl}/inventory/{id}";
+
+            try
+            {
+                HttpResponseMessage response = await client.DeleteAsync(url);
+                response.EnsureSuccessStatusCode();
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Hiba: {e.Message}");
+                return false;
+            }
+        }
+
+        public async Task<List<Products>> FilterStock(string warehouse)
+        {
+            string url = $"{BaseUrl}/products/warehouse/{warehouse}";
+
+            List<Products> list = new List<Products>();
+
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(url);
+                response.EnsureSuccessStatusCode();
+
+                string result = await response.Content.ReadAsStringAsync();
+                list = JsonConvert.DeserializeObject<List<Products>>(result);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Hiba: {e.Message}");
+            }
+            return list;
+        }
+
+        public async Task<List<Products>> ListLowStock()
+        {
+            string url = $"{BaseUrl}/products/lowStock";
+
+            List<Products> list = new List<Products>();
+
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(url);
+                response.EnsureSuccessStatusCode();
+
+                string result = await response.Content.ReadAsStringAsync();
+                list = JsonConvert.DeserializeObject<List<Products>>(result);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Hiba: {e.Message}");
+            }
+            return list;
+        }
+
     }
 
     public class Warehouse
@@ -267,6 +328,14 @@ namespace Raktárkészlet_nyilvántartó_rendszer
         public int capacity { get; set; }
         public string manager_name { get; set; }
         public string notes { get; set; }
+    }
+
+    public class Products
+    {
+        public int id { get; set; }
+        public string name { get; set; }
+        public int warehouseId { get; set; }
+        public int amount { get; set; }
     }
 }
 

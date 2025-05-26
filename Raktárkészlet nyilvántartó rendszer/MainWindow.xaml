@@ -34,6 +34,8 @@
             <Button Visibility="Collapsed" Name="ShowallB" Click="ClickShowAll" Grid.Row="4" Grid.Column="5"  FontSize="18" Height="50" FontWeight="Bold" BorderThickness="0" Background="Transparent" Foreground="White">Termékek listázása</Button>
             <Button Visibility="Collapsed" Name="ShowbynameB" Click="ClickShowByName" Grid.Row="4" Grid.Column="5"  FontSize="18" Height="50" FontWeight="Bold" BorderThickness="0" Background="Transparent" Foreground="White">Keresés: Név alapján</Button>
             <Button Visibility="Collapsed" Name="showbyidB" Click="ClickShowById" Grid.Row="5" Grid.Column="3" FontSize="18" Height="50" FontWeight="Bold" BorderThickness="0" Background="Transparent" Foreground="White">Keresés: ID alapján</Button>
+            <Button Visibility="Collapsed" Name="showbywhB" Click="ClickShowByWh" Grid.Row="5" Grid.Column="3" FontSize="18" Height="50" FontWeight="Bold" BorderThickness="0" Background="Transparent" Foreground="White">Keresés: Raktár alapján</Button>
+            <Button Visibility="Collapsed" Name="showlowB" Click="ClickShowLow" Grid.Row="5" Grid.Column="3" FontSize="18" Height="50" FontWeight="Bold" BorderThickness="0" Background="Transparent" Foreground="White">Alacsony készlet</Button>
 
             <Button Name="Warehouse_menaggement" Padding="0,0,80,0" Height="50" Margin="0,20,0,0" Background="Transparent" FontWeight="Bold"
                     Click="Warehouse_menaggement_Click" Content="Warehouse" FontSize="24" Foreground="White" BorderThickness="0">
@@ -41,6 +43,7 @@
             <Button Visibility="Collapsed" Name="WH_add" Click="WH_add_Click" Grid.Row="4" FontSize="18" Height="50" FontWeight="Bold" BorderThickness="0" Background="Transparent" Foreground="White">Hozzáadás</Button>
             <Button Visibility="Collapsed" Name="WH_searchbyID" Click="WH_searchbyID_Click" Grid.Row="4" FontSize="18" Height="50" FontWeight="Bold" BorderThickness="0" Background="Transparent" Foreground="White">Keresés: ID alapján</Button>
             <Button Visibility="Collapsed" Name="WH_ShowAll" Click="WH_ShowAll_Click" Grid.Row="4" FontSize="18" Height="50" FontWeight="Bold" BorderThickness="0" Background="Transparent" Foreground="White">Raktárak listázása</Button>
+            <Button Visibility="Collapsed" Name="WH_delStock" Click="WH_DeleteStock_Click" Grid.Row="4" FontSize="18" Height="50" FontWeight="Bold" BorderThickness="0" Background="Transparent" Foreground="White">Készlet törlése</Button>
 
 
 
@@ -79,6 +82,7 @@
                     <TextBox Name="nameInput" Margin="10 40 10 0" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center"  Padding="10" HorizontalContentAlignment="Center" FontSize="15" Text="Termék neve: " Tag="Termék neve: " GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"></TextBox>
                     <TextBox Name="typeInput" Margin="10 20 10 0" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center"  Padding="10" HorizontalContentAlignment="Center" FontSize="15" Text="Termék típusa: " Tag="Termék típusa: " GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"></TextBox>
                     <TextBox Name="priceInput" Margin="10 20 10 0" Grid.Row="3" Grid.Column="2" VerticalAlignment="Center"  Padding="10" HorizontalContentAlignment="Center" FontSize="15" Text="Termék ára: " Tag="Termék ára: " GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"></TextBox>
+                    <TextBox Name="whNameInput" Margin="10 20 10 0" Grid.Row="4" Grid.Column="2" VerticalAlignment="Center"  Padding="10" HorizontalContentAlignment="Center" FontSize="15" Text="Raktár neve: " Tag="Raktár neve: " GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"></TextBox>
                     <TextBox Name="IdInput" Grid.Row="5" Grid.Column="2" Width="150" Margin= "20 20 0 20" FontSize="16" Padding="10" HorizontalAlignment="Left" VerticalAlignment="Center" Text="Termékazonosító: " Tag="Termékazonosító: " GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"></TextBox>
 
                 </StackPanel>
