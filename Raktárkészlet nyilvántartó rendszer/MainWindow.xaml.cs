@@ -65,6 +65,8 @@ namespace Raktárkészlet_nyilvántartó_rendszer
                 return;
             }
 
+            Everything.Children.Clear();
+
             foreach (var p in products)
             {
 
